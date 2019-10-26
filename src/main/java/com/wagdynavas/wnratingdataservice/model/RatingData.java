@@ -1,21 +1,30 @@
 package com.wagdynavas.wnratingdataservice.model;
 
-public class RatingData {
+import javax.persistence.*;
 
-    private String ratingId;
+@Entity
+public class RatingData {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long ratingId;
+
+    @Column(name = "rate")
     private int rate;
+
+    @Column(name = "movie_id")
     private String movieId;
 
-    public RatingData(String movieId, int rate) {
-        this.movieId = movieId;
-        this.rate = rate;
-    }
+    @Column(name = "user_id")
+    private String userId;
 
-    public String getRatingId() {
+
+
+    public Long getRatingId() {
         return ratingId;
     }
 
-    public void setRatingId(String ratingId) {
+    public void setRatingId(Long ratingId) {
         this.ratingId = ratingId;
     }
 
@@ -35,6 +44,14 @@ public class RatingData {
         this.movieId = movieId;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,7 +61,8 @@ public class RatingData {
 
         if (rate != that.rate) return false;
         if (ratingId != null ? !ratingId.equals(that.ratingId) : that.ratingId != null) return false;
-        return movieId != null ? movieId.equals(that.movieId) : that.movieId == null;
+        if (movieId != null ? !movieId.equals(that.movieId) : that.movieId != null) return false;
+        return userId != null ? userId.equals(that.userId) : that.userId == null;
     }
 
     @Override
@@ -52,6 +70,7 @@ public class RatingData {
         int result = ratingId != null ? ratingId.hashCode() : 0;
         result = 31 * result + rate;
         result = 31 * result + (movieId != null ? movieId.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         return result;
     }
 
@@ -60,7 +79,8 @@ public class RatingData {
         return "RatingData ["
                 + ((ratingId != null) ? "ratingId=" + ratingId + ", " : "")
                 + "rate=" + rate + ", "
-                + ((movieId != null) ? "movieId=" + movieId : "")
+                + ((movieId != null) ? "movieId=" + movieId + ", " : "")
+                + ((userId != null) ? "userId=" + userId : "")
                 + "]";
     }
 }
